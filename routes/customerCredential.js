@@ -9,9 +9,10 @@ router.post('/', authorize, async (req, res) => {
       [req.customer.email]
     );
 
-    res.json(customer.rows[0]);
+    res.json(customer.rows);
   } catch (err) {
     console.error(err.message);
+    console.error('Error in getting credentials');
     res.status(500).send('Server error');
   }
 });

@@ -9,6 +9,7 @@ const getProduct = require('./routes/getProduct');
 const customerCredential = require('./routes/customerCredential');
 const getSingleProduct = require('./routes/getSingleProduct');
 const postOrder = require('./routes/postOrder');
+const cart = require('./routes/cart');
 
 // Express Middlewares
 app.use(cors());
@@ -22,6 +23,8 @@ app.use('/product', getProduct);
 app.use('/credential', customerCredential);
 app.use('/single-product', getSingleProduct);
 app.use('/order', postOrder);
+app.use('/cart', cart);
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Started listening at ${PORT}`);
