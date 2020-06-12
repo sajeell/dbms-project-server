@@ -3,10 +3,24 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../db');
 
-router.post('/', async (req, res) => {
-  const {order_id, customer_email, quantity, price} = req.body;
-
+router.get('/:email', async (req, res) => {
   try {
+    const email = req.params.email;
+    console.log(`Email::: ${email}`);
+    const cart = await pool.query(
+      'SELECT * FROM cart JOIN product ON cart.product_id=product.id WHERE customer_email = $1',
+      [email]
+    );
+    res.json(cart.rows);
+  } catch (error) {
+    console.error(error);
+    console.error('Error in getting cart items');
+  }
+});
+
+router.post('/', async (req, res) => {
+  try {
+    const {order_id, customer_email, quantity, price} = req.body;
     const cart = await pool.query(
       'INSERT INTO cart (order_id, customer_email, quantity, price) VALUES ($1,$2,$3,$4);',
       [order_id, customer_email, quantity, price]
