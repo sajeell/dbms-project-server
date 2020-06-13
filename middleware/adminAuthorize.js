@@ -5,7 +5,7 @@ require('dotenv').config();
 
 module.exports = function (req, res, next) {
   // Get token from header
-  const token = req.header('jwt_token');
+  const token = req.header('admin_jwt_token');
 
   // Check if not token
   if (!token) {
@@ -15,11 +15,11 @@ module.exports = function (req, res, next) {
   // Verify token
   try {
     //it is going to give use the user id (user:{id: user.id})
-    const verify = jwt.verify(token, process.env.jwtSecret);
+    const verify = jwt.verify(token, process.env.adminjwtSecret);
 
     req.customer = verify.customer;
     next();
   } catch (err) {
-    res.status(401).json({msg: 'Token is not valid'});
+    res.status(401).json({msg: 'Admin Token is not valid'});
   }
 };
