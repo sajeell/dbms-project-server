@@ -15,6 +15,8 @@ const postOrder = require('./routes/postOrder');
 const postProduct = require('./routes/postProduct');
 const cart = require('./routes/cart');
 const checkout = require('./routes/checkout');
+const status = require('./routes/orderStatus');
+const getOrder = require('./routes/getOrder');
 
 // Express Middlewares
 app.use(cors());
@@ -35,6 +37,8 @@ app.use('/order', postOrder);
 app.use('/cart', cart);
 app.use('/checkout', checkout);
 app.use('/postproduct', postProduct);
+app.use('/status', status);
+app.use('/orders', getOrder);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
